@@ -35,20 +35,14 @@ export default function Swap(props) {
 	const [cryptoParamsInitialized, setCryptoParamsInitialized] = useState(false);
 
 	async function login() {
-		//fix login so we don't have to login every time we visit page
 		try {
 			setUser(await Moralis.authenticate());
-			//Change below to remove disabled when logged into metamask
-			// document.getElementById('swap_button').disabled = false;
 			console.log('Logged in');
 		} catch (error) {
 			console.log(error);
 		}
 	}
-	// async function logOut() {
-	// 	await Moralis.User.logOut();
-	// 	console.log('logged out');
-	// }
+
 	async function listAvailableTokens(chain) {
 		try {
 			const result = await Moralis.Plugins.oneInch.getSupportedTokens({
@@ -74,12 +68,6 @@ export default function Swap(props) {
 			setCurrentTradeTo(tokensObj[address]);
 			if (currentTradeFrom.length !== 0) handleSwapBookmark(currentTradeFrom.symbol, tokensObj[address].symbol);
 		}
-		// let tokenSet = Promise.resolve(setCurrentTradeFrom(tokensObj[address]));
-		// tokenSet.then(function (result) {
-		// 	handleSwapBookmark();
-		// });
-		//May be required
-		// getQuote();
 	}
 
 	function openModal(tempSide) {
@@ -120,7 +108,6 @@ export default function Swap(props) {
 			try {
 				Moralis.start({ serverUrl, appId });
 				await Moralis.initPlugins();
-				// await Moralis.enable();
 				if (chainFilterParam) {
 					setChainFilter(chainFilterParam);
 				} else {
@@ -166,15 +153,10 @@ export default function Swap(props) {
 				});
 			}
 		}
-		console.log(ethereum);
-		// console.log(currentTradeFrom);
-		// console.log(amount);
-		// console.log(address);
 		await doSwap(address, amount);
 	}
 
 	async function doSwap(userAddress, amount) {
-		console.log('before swap');
 		try {
 			return await Moralis.Plugins.oneInch.swap({
 				chain: chainFilter,
@@ -268,12 +250,6 @@ export default function Swap(props) {
 			setFavorite(result.data);
 		});
 	}
-	// useEffect(() => {
-	// 	const checkBookmarked = Promise.resolve(checkBookmarked());
-	// 	checkBookmarked.then(function (result) {
-	// 		setBookmarked(result.data);
-	// 	});
-	// }, [props]);
 	return (
 		<div id="swap">
 			<div id="swap_form">
@@ -355,24 +331,15 @@ export default function Swap(props) {
 					{gasEstimate ? (
 						<div id="swap_fees">
 							Fees: <span id="gas_estimate">{gasEstimate}</span> {chainFilter === 'eth' ? 'eth' : chainFilter === 'bsc' ? 'bnb' : 'polygon'}
-							{/* <span style={{ fontSize: '10px' }}>&nbsp;&nbsp;▼</span> */}
 						</div>
 					) : (
 						<div></div>
 					)}
 				</div>
-				{/* <!-- Make button below disabled when not logged in --> */}
 				<Button className="exchange_button" id="swap_button" onClick={user ? trySwap : login}>
 					{user ? 'Swap' : 'Moralis Login'}
 				</Button>
 			</div>
-			{/* <button id="btn-login" onClick={login}>
-				Moralis Metamask Login
-			</button>
-			<button id="btn-logout" onClick={logOut}>
-				Logout
-			</button>
-			 */}
 			<div className="modal" id="token_modal" tabIndex="-1" role="dialog" style={{ display: tokenModal }}>
 				<div className="modal-dialog" role="document">
 					<div className="modal-content">

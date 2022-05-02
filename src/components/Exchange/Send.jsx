@@ -4,7 +4,6 @@ import { Form, Button } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 
 export default function Send() {
-	// const { sendTransaction, connectWallet, currentAccount, formData, handleChange, setFormData } = useContext(TransactionContext);
 	const { sendTransaction, formData, handleChange, currentAccount } = useContext(TransactionContext);
 	console.log(currentAccount);
 	const handleSubmit = (e) => {

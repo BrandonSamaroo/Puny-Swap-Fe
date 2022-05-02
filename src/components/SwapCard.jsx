@@ -4,8 +4,6 @@ import chevRight from '../chevRight.svg';
 import { Link } from 'react-router-dom';
 
 export default function SwapCard(props) {
-	// const [crypto1, setcrypto1] = useState(props.crypto1);
-	// const [crypto2, setcrypto2] = useState(props.crypto2);
 	return (
 		<>
 			<div className="container">

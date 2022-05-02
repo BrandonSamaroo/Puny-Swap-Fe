@@ -6,58 +6,17 @@ import PropagateLoader from 'react-spinners/PropagateLoader';
 import { usePromiseTracker, trackPromise } from 'react-promise-tracker';
 
 export default function Bookmarks(props) {
-	// let pos = { top: 0, left: 0, x: 0, y: 0 };
 	const { promiseInProgress } = usePromiseTracker();
 	const getUserSwaps = async () => {
 		axios
 			.get(`userSwaps?userId=${props.user.user.id}`)
 			.then((response) => {
 				setState({ ...state, userSwaps: response.data });
-				// return response.data.map((swap) => {
-				// 	return <SwapCard swap={swap}></SwapCard>;
-				// });
 			})
 			.catch((error) => {
 				console.log(error);
 			});
 	};
-	// const handleScroll = (e) => {
-	// 	const bottom = e.target.scrollWidth - e.target.scrollLeft === e.target.clientWidth;
-	// 	if (bottom) {
-	// 	}
-	// };
-	// const ele = document.getElementById('bookmark-cont');
-	// const mouseDownHandler = function (e) {
-	// 	ele.style.cursor = 'grabbing';
-	// 	ele.style.userSelect = 'none';
-	// 	pos = {
-	// 		// The current scroll
-	// 		left: ele.scrollLeft,
-	// 		top: ele.scrollTop,
-	// 		// Get the current mouse position
-	// 		x: e.clientX,
-	// 		y: e.clientY,
-	// 	};
-
-	// 	document.addEventListener('mousemove', mouseMoveHandler);
-	// 	document.addEventListener('mouseup', mouseUpHandler);
-	// };
-	// const mouseMoveHandler = function (e) {
-	// 	// How far the mouse has been moved
-	// 	const dx = e.clientX - pos.x;
-	// 	const dy = e.clientY - pos.y;
-
-	// 	// Scroll the element
-	// 	ele.scrollTop = pos.top - dy;
-	// 	ele.scrollLeft = pos.left - dx;
-	// };
-	// const mouseUpHandler = function () {
-	// 	document.removeEventListener('mousemove', mouseMoveHandler);
-	// 	document.removeEventListener('mouseup', mouseUpHandler);
-
-	// 	ele.style.cursor = 'grab';
-	// 	ele.style.removeProperty('user-select');
-	// };
 
 	const sortData = (data) => {
 		data.sort((a, b) => {
